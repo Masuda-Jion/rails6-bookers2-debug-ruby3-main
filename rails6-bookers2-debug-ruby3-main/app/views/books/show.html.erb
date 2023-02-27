@@ -17,14 +17,59 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-            <td>
-              <% if @book.user == current_user %>
-                <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
-              <% end %>
-            </td>
+          <td>
+            <% if @book.user == current_user %>
+              <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
+          <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+            <% end %>
+          </td>
+          <td>
+            <% if @book.favorited_by?(current_user) %>
+              <p>
+                <%= link_to book_favorites_path(@book), method: :delete do %>
+                  ♥<%= @book.favorites.count %>
+                <% end %>
+              </p>
+              <% else %>
+              <P>
+                <%= link_to book_favorites_path(@book), method: :post do %>
+                  ♡<%= @book.favorites.count %>
+                <% end %>
+              </P>
+            <% end %>
+          </td>
+          <td>
+            <p>コメント数: <%= @book.book_comments.count %></p>
+          </td>
         </tr>
       </table>
-    </div>
+      <div>
+        <% @book.book_comments.each do |book_comment| %>
+          <table>
+            <tr>
+              <td>
+                <p><%= image_tag book_comment.user.get_profile_image, size:'80x80' %></p>
+              </td>
+              <td>
+                <%= book_comment.comment %>
+              </td>
+              <td>
+                <% if book_comment.user == current_user %>
+                  <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete,
+                  class: "btn btn-sm btn-danger"%>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+          <%= link_to book_comment.user.name %>
+        <% end %>
+      </div>
+       <div>
+          <%= form_with model: [@book, @book_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', cols: '80' %>
+            <%= f.submit "送信" %>
+          <% end %>
+        </div>
+      </div>
   </div>
 </div>
