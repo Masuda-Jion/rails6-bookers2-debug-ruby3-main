@@ -9,6 +9,25 @@
 	  <th><%= user.introduction %></th>
   </tr>
 </table>
+
+<table class='table'>
+  <tr>
+	  <th>follows</th>
+	  <th>
+	    <%= link_to user_followers_path(user) do %>
+	      <%= user.followings.count %>
+	    <% end %>
+	  </th>
+  </tr>
+  <tr>
+	  <th>followers</th>
+	  <th>
+	    <%= link_to user_followings_path(user) do %>
+	      <%= user.followers.count %>
+	    <% end %>
+	  </th>
+  </tr>
+</table>
 　
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
