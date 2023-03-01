@@ -1,5 +1,6 @@
 <table class='table table-hover table-inverse'>
   <% if @range == "User" %>
+    <h3>Users search for "<%= @word %>"</h3>
     <thead>
       <tr>
         <th>image</th>
@@ -16,6 +17,7 @@
       <% end %>
     </tbody>
   <% else %>
+    <h3>Books search for "<%= @word %>"</h3>
     <thead>
       <tr>
         <th></th>
