@@ -9,7 +9,34 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <%= render 'index', books: @books%>
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td><%= link_to user_path(book.user.id) do %>
+                <%= image_tag book.user.get_profile_image, size:'50x50' %>
+                <% end %>
+              </td>
+              <td><%= link_to book.title,book %></td>
+              <td><%= book.body %></td>
+              <td id="favorite_buttons_<%= book.id %>">
+          　　  　<%= render "favorites/favorite", book: book %>
+            　</td>
+              <td>
+                <p>コメント数: <%= book.book_comments.count %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
