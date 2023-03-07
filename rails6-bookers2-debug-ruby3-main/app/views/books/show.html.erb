@@ -23,7 +23,9 @@
           <td class="book-comments-counter">
             <%= render "book_comments/counter", book: @book %>
           </td>
-          
+          <td>
+            <p class="view-count">閲覧数: <%= @book_detail.view_counts.count %></p>
+          </td>
           
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
