@@ -11,20 +11,9 @@
   <% end %>
 </div>
 
-<div class="erros">
-  <%= render "layouts/erros", obj: @chat %>
+<div class="errors">
+  <%= render "layouts/errors", obj: @chat %>
 </div>
-
-<% if obj.errors.any? %>
-  <div id="error_explanation">
-    <h3><%= pluralize(obj.errors.count, "error") %> prohibited this obj from being saved:</h3>
-    <ul>
-      <% obj.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
 <%= form_with model: @chat, data: {remote: true} do |f| %>
   <%= f.text_field :message %>
